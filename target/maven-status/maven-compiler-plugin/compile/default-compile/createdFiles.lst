@@ -1,1 +1,6 @@
+com/springboot/application/service/GliderService.class
 com/springboot/application/AircraftApplication.class
+com/springboot/application/entity/Aircraft.class
+com/springboot/application/entity/Glider.class
+com/springboot/application/controller/GliderController.class
+com/springboot/application/repository/GliderRepository.class
