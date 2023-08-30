@@ -8,28 +8,28 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "glider")
+@Table(name = "jet")
 @PrimaryKeyJoinColumn(referencedColumnName="tailNumber")
-public class Glider extends Aircraft {
-    // Unique to Glider - no engine, uses tow plane
-    @NotNull(message = "Tow Plane Name cannot be null")
-    @NotBlank(message = "Tow Plane Name cannot be null")
-    private String towPlane;
-    // Default Constructor
-    public Glider() {}
+public class Jet extends Aircraft {
+    @NotNull(message = "Fuel Name cannot be null")
+    @NotBlank(message = "Fuel Name cannot be null")
+    private String fuel;
 
     // Default Constructor
-    public Glider(String tailNum, int wheelsNum, int length, String towPlaneName) {
+    public Jet() {}
+
+    // Default Constructor
+    public Jet(String tailNum, int wheelsNum, int length, String fuel) {
         super(tailNum, wheelsNum, length);
-        this.towPlane = towPlaneName;
+        this.fuel = fuel;
     }
 
-    // Setter and Getter
-    public void setTowPlaneName(String towPlaneName) {
-		this.towPlane = towPlaneName;
+    // Setters and Getters
+    public void setFuel(String fuel) {
+		this.fuel = fuel;
 	}
-	public String getTowPlaneName() {
-		return towPlane;
+	public String getFuel() {
+		return fuel;
 	}
 
     // Method override
@@ -38,6 +38,6 @@ public class Glider extends Aircraft {
         System.out.println("Tail Number: " + getTailNumber());
         System.out.println("Number of Wheels: " + getNumberOfWheels());
         System.out.println("Length: " + getLength());
-        System.out.println("Name of Towplane: " + getTowPlaneName());
+        System.out.println("Name of Fuel: " + getFuel());
     }
 }

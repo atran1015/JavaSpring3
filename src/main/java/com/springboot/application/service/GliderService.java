@@ -39,7 +39,7 @@ public class GliderService {
         return gliderRepository.findById(tailNumber).get();
     }
 
-    // DELETE methodgetReferenceById
+    // DELETE method
     public void deleteGlider(String tailNumber) {
         if (gliderRepository.existsById(tailNumber)) {
             gliderRepository.deleteById(tailNumber);

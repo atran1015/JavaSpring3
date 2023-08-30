@@ -13,9 +13,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "aircraft")
-@Inheritance( strategy = InheritanceType.JOINED )
+@Inheritance( strategy = InheritanceType.JOINED ) // For joined table operation
 public abstract class Aircraft implements Serializable{
-    // Attributes/Properties - an Aircraft have these in common
+    
     @Id
     @Column(name = "tailNumber", unique = true, nullable = false)
     protected String tailNumber;
