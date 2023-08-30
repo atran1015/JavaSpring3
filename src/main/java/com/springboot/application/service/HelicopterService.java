@@ -1,5 +1,5 @@
 package com.springboot.application.service;
-import com.springboot.application.entity.Helicopter;
+import com.springboot.application.model.Helicopter;
 import com.springboot.application.repository.HelicopterRepository;
 
 import java.util.List;
@@ -32,17 +32,17 @@ public class HelicopterService {
     }
 
     // GET one method
-    public Helicopter getOneHelicopter(String tailNumber) {
-        if (!helicopterRepository.existsById(tailNumber)) {
+    public Helicopter getOneHelicopter(Long id) {
+        if (!helicopterRepository.existsById(id)) {
             throw new NullPointerException();
         }
-        return helicopterRepository.findById(tailNumber).get();
+        return helicopterRepository.findById(id).get();
     }
 
     // DELETE method
-    public void deleteHelicopter(String tailNumber) {
-        if (helicopterRepository.existsById(tailNumber)) {
-            helicopterRepository.deleteById(tailNumber);
+    public void deleteHelicopter(Long id) {
+        if (helicopterRepository.existsById(id)) {
+            helicopterRepository.deleteById(id);
         } else {
             throw new NullPointerException();
         }
@@ -50,11 +50,11 @@ public class HelicopterService {
     }
     
     // PUT method
-    public Helicopter updateHelicopter(String tailNumber, Helicopter newHelicopterDetail) {
-        Helicopter helicopterDB = helicopterRepository.findById(tailNumber).get();
+    public Helicopter updateHelicopter(Long id, Helicopter newHelicopterDetail) {
+        Helicopter helicopterDB = helicopterRepository.findById(id).get();
   
-        if (Objects.nonNull(newHelicopterDetail.getTailNumber())) {
-            helicopterDB.setTailNumber(newHelicopterDetail.getTailNumber());
+        if (Objects.nonNull(newHelicopterDetail.getId())) {
+            helicopterDB.setId(newHelicopterDetail.getId());
         }
   
         if (Objects.nonNull(newHelicopterDetail.getNumberOfWheels())) {

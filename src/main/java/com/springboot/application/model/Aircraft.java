@@ -1,4 +1,4 @@
-package com.springboot.application.entity;
+package com.springboot.application.model;
 
 import java.io.Serializable;
 
@@ -16,35 +16,35 @@ import jakarta.validation.constraints.*;
 @Entity
 @Table(name = "aircraft")
 @Inheritance( strategy = InheritanceType.JOINED ) // For joined table operation
-public abstract class Aircraft implements Serializable{ // Converts Java objects into byte streams for it to be sotred in persistent memory
+public abstract class Aircraft implements Serializable{ // Converts Java objects into byte streams for it to be stored in persistent memory
     
     @Id //Primary key of current identity
-    @Column(name = "tailNumber", unique = true, nullable = false)
-    @Size(min = 6, max = 6, message = "Length of tail number is 6")
-    protected String tailNumber;
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO) // Generating id
+    protected Long id;
 
-    @Column(name = "numberOfWheels", columnDefinition = "integer", nullable = false)
+    @Column(name = "numberOfWheels", nullable = false)
     protected int numberOfWheels;
 
-    @Column(name = "length", columnDefinition = "integer", nullable = false)
+    @Column(name = "length", nullable = false)
     protected int length;
 
     // Default Constructor
     public Aircraft() {}
 
     // Default Constructor
-    public Aircraft(String tailNum, int wheelsNum, int length) {
-        this.tailNumber = tailNum;
+    public Aircraft(Long id, int wheelsNum, int length) {
+        this.id = id;
         this.numberOfWheels = wheelsNum;
         this.length = length;
     }
 
     // Setters and Getters
-    public void setTailNumber(String tailNum) {
-        this.tailNumber = tailNum;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public String getTailNumber() {
-        return tailNumber;
+    public Long getId() {
+        return id;
     }
     public void setNumberOfWheels(int wheelsNum) {
         this.numberOfWheels = wheelsNum;
@@ -70,7 +70,7 @@ public abstract class Aircraft implements Serializable{ // Converts Java objects
         System.out.println("The Aircraft is landing.");
     }
     public void printDetails() {
-        System.out.println("Tail Number: " + getTailNumber());
+        System.out.println("Id: " + getId());
         System.out.println("Number of Wheels: " + getNumberOfWheels());
         System.out.println("Length: " + getLength());
     }

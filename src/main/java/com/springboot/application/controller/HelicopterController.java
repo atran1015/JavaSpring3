@@ -1,6 +1,6 @@
 package com.springboot.application.controller;
 
-import com.springboot.application.entity.Helicopter;
+import com.springboot.application.model.Helicopter;
 import com.springboot.application.service.HelicopterService;
 
 import java.util.List;
@@ -34,51 +34,51 @@ public class HelicopterController {
     }
 
     // For GET method - retrieve ONE
-    @GetMapping("{tailNumber}") // singleton resource - full access to url would be http://localhost:8080/api/v1/gliders/1abc
-    public ResponseEntity<?> getOneHelicopter (@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @GetMapping("{id}") // singleton resource - full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    public ResponseEntity<?> getOneHelicopter (@PathVariable("id")@NotNull Long id) {
         try {
-            helicopterService.getOneHelicopter(tailNumber);
+            helicopterService.getOneHelicopter(id);
         } catch (NullPointerException e) {
             // Returns string
-            return new ResponseEntity<>("Glider with this tail number, " + tailNumber + ", does not exist.  Not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
         }
         // Returns a glider object
-        return new ResponseEntity<>(helicopterService.getOneHelicopter(tailNumber), HttpStatus.OK);
+        return new ResponseEntity<>(helicopterService.getOneHelicopter(id), HttpStatus.OK);
     }
 
 
     // For POST method
     @PostMapping
-    public ResponseEntity<String> createHelicopter(@Valid @RequestBody Helicopter helicopter) {
+    public ResponseEntity<?> createHelicopter(@Valid @RequestBody Helicopter helicopter) {
         try {
             helicopterService.createHelicopter(helicopter);
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Can't be created", HttpStatus.BAD_REQUEST);
         }
         
-        return new ResponseEntity<>("Helicopter has been created", HttpStatus.CREATED);
+        return new ResponseEntity<>(helicopterService.createHelicopter(helicopter), HttpStatus.CREATED);
     }
 
     // for DELETE method
-    @DeleteMapping("{tailNumber}") // full access to url would be http://localhost:8080/api/v1/gliders/1abc
-    public ResponseEntity<String> deleteHelicopter(@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @DeleteMapping("{id}") // full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    public ResponseEntity<String> deleteHelicopter(@PathVariable("id")@NotNull Long id) {
         try {
-            helicopterService.deleteHelicopter(tailNumber);
+            helicopterService.deleteHelicopter(id);
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Cannot delete.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Helicopter with this tail number, " + tailNumber + ", has been deleted.", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted.", HttpStatus.NO_CONTENT);
     }
 
     // for PUT method
-    @PutMapping("{tailNumber}")
-    public ResponseEntity<String> updateHelicopter(@PathVariable("tailNumber") @NotNull @NotBlank String tailNumber, @Valid @RequestBody Helicopter newHelicopterDetail) {
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateHelicopter(@PathVariable("id") @NotNull Long id, @Valid @RequestBody Helicopter newHelicopterDetail) {
         try {
-            helicopterService.updateHelicopter(tailNumber, newHelicopterDetail);
+            helicopterService.updateHelicopter(id, newHelicopterDetail);
         } catch (Exception e) {
             return new ResponseEntity<>("Cannot modify.", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Helicopter with this tail number, " + tailNumber + ", has been modified.", HttpStatus.OK);
+        return new ResponseEntity<>(helicopterService.updateHelicopter(id, newHelicopterDetail), HttpStatus.OK);
     }
 
 }

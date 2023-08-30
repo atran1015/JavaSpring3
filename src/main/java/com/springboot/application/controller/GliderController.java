@@ -1,6 +1,6 @@
 package com.springboot.application.controller;
 
-import com.springboot.application.entity.Glider;
+import com.springboot.application.model.Glider;
 import com.springboot.application.service.GliderService;
 
 import java.util.List;
@@ -34,51 +34,53 @@ public class GliderController {
     }
 
     // For GET method - retrieve ONE
-    @GetMapping("{tailNumber}")
-    public ResponseEntity<?> getOneGlider (@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @GetMapping("{id}")
+    public ResponseEntity<?> getOneGlider (@PathVariable("id")@NotNull Long id) {
         try {
-            gliderService.getOneGlider(tailNumber);
+            gliderService.getOneGlider(id);
         } catch (NullPointerException e) {
             // Returns string
-            return new ResponseEntity<>("Glider with this tail number, " + tailNumber + ", does not exist.  Not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
         }
         // Returns a glider object
-        return new ResponseEntity<>(gliderService.getOneGlider(tailNumber), HttpStatus.OK);
+        return new ResponseEntity<>(gliderService.getOneGlider(id), HttpStatus.OK);
     }
 
 
     // For POST method
     @PostMapping
-    public ResponseEntity<String> createGlider(@Valid @RequestBody Glider glider) {
+    public ResponseEntity<?> createGlider(@Valid @RequestBody Glider glider) {
         try {
             gliderService.createGlider(glider);
+        // TODO: try to catch internal server error as well
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Can't be created", HttpStatus.BAD_REQUEST);
         }
         
-        return new ResponseEntity<>("Glider has been created", HttpStatus.CREATED);
+        
+        return new ResponseEntity<>(gliderService.createGlider(glider), HttpStatus.CREATED);
     }
 
     // for DELETE method
-    @DeleteMapping("{tailNumber}")
-    public ResponseEntity<String> deleteGlider(@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteGlider(@PathVariable("id")@NotNull Long id) {
         try {
-            gliderService.deleteGlider(tailNumber);
+            gliderService.deleteGlider(id);
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Cannot delete.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Glider with this tail number, " + tailNumber + ", has been deleted.", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted.", HttpStatus.NO_CONTENT);
     }
 
     // for PUT method
-    @PutMapping("{tailNumber}")
-    public ResponseEntity<String> updateGlider(@PathVariable("tailNumber") @NotNull @NotBlank String tailNumber, @Valid @RequestBody Glider newGliderDetails) {
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateGlider(@PathVariable("id") @NotNull Long id, @Valid @RequestBody Glider newGliderDetails) {
         try {
-            gliderService.updateGlider(tailNumber, newGliderDetails);
+            gliderService.updateGlider(id, newGliderDetails);
         } catch (Exception e) {
             return new ResponseEntity<>("Cannot modify.", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Glider with this tail number, " + tailNumber + ", has been modified.", HttpStatus.OK);
+        return new ResponseEntity<>(gliderService.updateGlider(id, newGliderDetails), HttpStatus.OK);
     }
 
 }

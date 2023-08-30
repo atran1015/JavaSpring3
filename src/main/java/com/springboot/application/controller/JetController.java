@@ -1,6 +1,6 @@
 package com.springboot.application.controller;
 
-import com.springboot.application.entity.Jet;
+import com.springboot.application.model.Jet;
 import com.springboot.application.service.JetService;
 
 import java.util.List;
@@ -34,51 +34,51 @@ public class JetController {
     }
 
     // For GET method - retrieve ONE
-    @GetMapping("{tailNumber}") // singleton resource - full access to url would be http://localhost:8080/api/v1/gliders/1abc
-    public ResponseEntity<?> getOneJet (@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @GetMapping("{id}") // singleton resource - full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    public ResponseEntity<?> getOneJet (@PathVariable("id")@NotNull Long id) {
         try {
-            jetService.getOneJet(tailNumber);
+            jetService.getOneJet(id);
         } catch (NullPointerException e) {
             // Returns string
-            return new ResponseEntity<>("Jet with this tail number, " + tailNumber + ", does not exist.  Not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
         }
         // Returns a glider object
-        return new ResponseEntity<>(jetService.getOneJet(tailNumber), HttpStatus.OK);
+        return new ResponseEntity<>(jetService.getOneJet(id), HttpStatus.OK);
     }
 
 
     // For POST method
     @PostMapping
-    public ResponseEntity<String> createJet(@Valid @RequestBody Jet jet) {
+    public ResponseEntity<?> createJet(@Valid @RequestBody Jet jet) {
         try {
             jetService.createJet(jet);
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Can't be created", HttpStatus.BAD_REQUEST);
         }
         
-        return new ResponseEntity<>("Jet has been created", HttpStatus.CREATED);
+        return new ResponseEntity<>(jetService.createJet(jet), HttpStatus.CREATED);
     }
 
     // for DELETE method
-    @DeleteMapping("{tailNumber}") // full access to url would be http://localhost:8080/api/v1/gliders/1abc
-    public ResponseEntity<String> deleteJet(@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
+    @DeleteMapping("{id}") // full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    public ResponseEntity<String> deleteJet(@PathVariable("id")@NotNull Long id) {
         try {
-            jetService.deleteJet(tailNumber);
+            jetService.deleteJet(id);
         } catch (NullPointerException e) {
             return new ResponseEntity<>("Cannot delete.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Jet with this tail number, " + tailNumber + ", has been deleted.", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted.", HttpStatus.NO_CONTENT);
     }
 
     // for PUT method
-    @PutMapping("{tailNumber}")
-    public ResponseEntity<String> updateJet(@PathVariable("tailNumber") @NotNull @NotBlank String tailNumber, @Valid @RequestBody Jet newJetDetail) {
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateJet(@PathVariable("id") @NotNull Long id, @Valid @RequestBody Jet newJetDetail) {
         try {
-            jetService.updateJet(tailNumber, newJetDetail);
+            jetService.updateJet(id, newJetDetail);
         } catch (Exception e) {
             return new ResponseEntity<>("Cannot modify.", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Jet with this tail number, " + tailNumber + ", has been modified.", HttpStatus.OK);
+        return new ResponseEntity<>(jetService.updateJet(id, newJetDetail), HttpStatus.OK);
     }
 
 }

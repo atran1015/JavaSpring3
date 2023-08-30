@@ -1,5 +1,5 @@
 package com.springboot.application.service;
-import com.springboot.application.entity.Jet;
+import com.springboot.application.model.Jet;
 import com.springboot.application.repository.JetRepository;
 
 import java.util.List;
@@ -32,17 +32,17 @@ public class JetService {
     }
 
     // GET one method
-    public Jet getOneJet(String tailNumber) {
-        if (!jetRepository.existsById(tailNumber)) {
+    public Jet getOneJet(Long id) {
+        if (!jetRepository.existsById(id)) {
             throw new NullPointerException();
         }
-        return jetRepository.findById(tailNumber).get();
+        return jetRepository.findById(id).get();
     }
 
     // DELETE method
-    public void deleteJet(String tailNumber) {
-        if (jetRepository.existsById(tailNumber)) {
-            jetRepository.deleteById(tailNumber);
+    public void deleteJet(Long id) {
+        if (jetRepository.existsById(id)) {
+            jetRepository.deleteById(id);
         } else {
             throw new NullPointerException();
         }
@@ -50,11 +50,11 @@ public class JetService {
     }
     
     // PUT method
-    public Jet updateJet(String tailNumber, Jet newJetDetail) {
-        Jet jetDB = jetRepository.findById(tailNumber).get();
+    public Jet updateJet(Long id, Jet newJetDetail) {
+        Jet jetDB = jetRepository.findById(id).get();
   
-        if (Objects.nonNull(newJetDetail.getTailNumber())) {
-            jetDB.setTailNumber(newJetDetail.getTailNumber());
+        if (Objects.nonNull(newJetDetail.getId())) {
+            jetDB.setId(newJetDetail.getId());
         }
   
         if (Objects.nonNull(newJetDetail.getNumberOfWheels())) {

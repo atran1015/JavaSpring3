@@ -1,4 +1,4 @@
-package com.springboot.application.entity;
+package com.springboot.application.model;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "jet")
-@PrimaryKeyJoinColumn(referencedColumnName="tailNumber")
+@PrimaryKeyJoinColumn(referencedColumnName="id")
 public class Jet extends Aircraft {
     @NotNull(message = "Fuel Name cannot be null")
     @NotBlank(message = "Fuel Name cannot be null")
@@ -19,8 +19,8 @@ public class Jet extends Aircraft {
     public Jet() {}
 
     // Default Constructor
-    public Jet(String tailNum, int wheelsNum, int length, String fuel) {
-        super(tailNum, wheelsNum, length);
+    public Jet(Long id, int wheelsNum, int length, String fuel) {
+        super(id, wheelsNum, length);
         this.fuel = fuel;
     }
 
@@ -35,7 +35,7 @@ public class Jet extends Aircraft {
     // Method override
     @Override
     public void printDetails() {
-        System.out.println("Tail Number: " + getTailNumber());
+        System.out.println("Id: " + getId());
         System.out.println("Number of Wheels: " + getNumberOfWheels());
         System.out.println("Length: " + getLength());
         System.out.println("Name of Fuel: " + getFuel());

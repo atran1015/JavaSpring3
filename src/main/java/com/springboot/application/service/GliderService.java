@@ -1,5 +1,5 @@
 package com.springboot.application.service;
-import com.springboot.application.entity.Glider;
+import com.springboot.application.model.Glider;
 import com.springboot.application.repository.GliderRepository;
 
 import java.util.List;
@@ -32,18 +32,18 @@ public class GliderService {
     }
 
     // GET one method
-    public Glider getOneGlider(String tailNumber) {
+    public Glider getOneGlider(Long id) {
         // Throw error if glider doesn't exist
-        if (!gliderRepository.existsById(tailNumber)) {
+        if (!gliderRepository.existsById(id)) {
             throw new NullPointerException();
         }
-        return gliderRepository.findById(tailNumber).get();
+        return gliderRepository.findById(id).get();
     }
 
     // DELETE method
-    public void deleteGlider(String tailNumber) {
-        if (gliderRepository.existsById(tailNumber)) {
-            gliderRepository.deleteById(tailNumber);
+    public void deleteGlider(Long id) {
+        if (gliderRepository.existsById(id)) {
+            gliderRepository.deleteById(id);
         } else {
             throw new NullPointerException();
         }
@@ -51,12 +51,12 @@ public class GliderService {
     }
     
     // PUT method
-    public Glider updateGlider(String tailNumber, Glider newGliderDetail) {
-        Glider gliderDB = gliderRepository.findById(tailNumber).get();
+    public Glider updateGlider(Long id, Glider newGliderDetail) {
+        Glider gliderDB = gliderRepository.findById(id).get();
 
         // Checks whether the input object reference supplied to it is non-null or not
-        if (Objects.nonNull(newGliderDetail.getTailNumber())) {
-            gliderDB.setTailNumber(newGliderDetail.getTailNumber());
+        if (Objects.nonNull(newGliderDetail.getId())) {
+            gliderDB.setId(newGliderDetail.getId());
         }
   
         if (Objects.nonNull(newGliderDetail.getNumberOfWheels())) {
