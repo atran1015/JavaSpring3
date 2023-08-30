@@ -33,6 +33,7 @@ public class GliderService {
 
     // GET one method
     public Glider getOneGlider(String tailNumber) {
+        // Throw error if glider doesn't exist
         if (!gliderRepository.existsById(tailNumber)) {
             throw new NullPointerException();
         }
@@ -52,7 +53,8 @@ public class GliderService {
     // PUT method
     public Glider updateGlider(String tailNumber, Glider newGliderDetail) {
         Glider gliderDB = gliderRepository.findById(tailNumber).get();
-  
+
+        // Checks whether the input object reference supplied to it is non-null or not
         if (Objects.nonNull(newGliderDetail.getTailNumber())) {
             gliderDB.setTailNumber(newGliderDetail.getTailNumber());
         }

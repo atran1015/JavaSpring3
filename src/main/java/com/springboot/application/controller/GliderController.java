@@ -34,7 +34,7 @@ public class GliderController {
     }
 
     // For GET method - retrieve ONE
-    @GetMapping("{tailNumber}") // singleton resource - full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    @GetMapping("{tailNumber}")
     public ResponseEntity<?> getOneGlider (@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
         try {
             gliderService.getOneGlider(tailNumber);
@@ -60,7 +60,7 @@ public class GliderController {
     }
 
     // for DELETE method
-    @DeleteMapping("{tailNumber}") // full access to url would be http://localhost:8080/api/v1/gliders/1abc
+    @DeleteMapping("{tailNumber}")
     public ResponseEntity<String> deleteGlider(@PathVariable("tailNumber")@NotNull @NotBlank String tailNumber) {
         try {
             gliderService.deleteGlider(tailNumber);

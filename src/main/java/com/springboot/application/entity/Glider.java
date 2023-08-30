@@ -4,6 +4,8 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
@@ -11,7 +13,6 @@ import jakarta.validation.constraints.*;
 @Table(name = "glider")
 @PrimaryKeyJoinColumn(referencedColumnName="tailNumber")
 public class Glider extends Aircraft {
-    // Unique to Glider - no engine, uses tow plane
     @NotNull(message = "Tow Plane Name cannot be null")
     @NotBlank(message = "Tow Plane Name cannot be null")
     private String towPlane;

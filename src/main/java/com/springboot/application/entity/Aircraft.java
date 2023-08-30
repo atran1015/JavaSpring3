@@ -10,14 +10,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "aircraft")
 @Inheritance( strategy = InheritanceType.JOINED ) // For joined table operation
-public abstract class Aircraft implements Serializable{
+public abstract class Aircraft implements Serializable{ // Converts Java objects into byte streams for it to be sotred in persistent memory
     
-    @Id
+    @Id //Primary key of current identity
     @Column(name = "tailNumber", unique = true, nullable = false)
+    @Size(min = 6, max = 6, message = "Length of tail number is 6")
     protected String tailNumber;
 
     @Column(name = "numberOfWheels", columnDefinition = "integer", nullable = false)
