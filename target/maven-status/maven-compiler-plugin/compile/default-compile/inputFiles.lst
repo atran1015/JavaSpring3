@@ -2,6 +2,7 @@
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/repository/GliderRepository.java
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/service/HelicopterService.java
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/model/Jet.java
+/home/aichan/Desktop/task3/src/main/java/com/springboot/application/exception/GlobalExceptionHandler.java
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/model/Glider.java
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/AircraftApplication.java
 /home/aichan/Desktop/task3/src/main/java/com/springboot/application/service/GliderService.java

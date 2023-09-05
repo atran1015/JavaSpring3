@@ -1,6 +1,6 @@
 # About
 
-The purpose of this repository is to demonstrate understanding of JPA (Java Persistence API) and Spring Boot application.
+The purpose of this repository is to demonstrate understanding of Unit Tests.
 
 # Instruction
 

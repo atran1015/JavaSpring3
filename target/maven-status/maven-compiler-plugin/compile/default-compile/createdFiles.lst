@@ -6,6 +6,7 @@ com/springboot/application/model/Helicopter.class
 com/springboot/application/AircraftApplication.class
 com/springboot/application/controller/HelicopterController.class
 com/springboot/application/service/HelicopterService.class
+com/springboot/application/exception/GlobalExceptionHandler.class
 com/springboot/application/model/Aircraft.class
 com/springboot/application/repository/JetRepository.class
 com/springboot/application/model/Jet.class

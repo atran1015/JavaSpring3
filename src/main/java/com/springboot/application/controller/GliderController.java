@@ -52,12 +52,9 @@ public class GliderController {
     public ResponseEntity<?> createGlider(@Valid @RequestBody Glider glider) {
         try {
             gliderService.createGlider(glider);
-        // TODO: try to catch internal server error as well
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>("Can't be created", HttpStatus.BAD_REQUEST);
         }
-        
-        
         return new ResponseEntity<>(gliderService.createGlider(glider), HttpStatus.CREATED);
     }
 
